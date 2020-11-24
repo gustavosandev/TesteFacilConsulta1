@@ -1,0 +1,99 @@
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    list-style:none;
+}
+body{
+	margin: 0;
+    padding: 0;
+    border: 0;
+    background-color: #eeeeee;
+}
+
+img{
+	max-width: 100%;
+
+}
+
+.menu{
+    background-color: #0094cf;
+    height: 6rem;
+    min-width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+             
+}
+
+.menu .nav-button{
+	height: 3rem;
+	width: 12rem;
+	background: white;
+	border-radius: 4px;
+	color: #0094cf;
+	border-color: #0094cf;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding-left: 14px;
+	padding-right: 14px;
+	font-weight: 500;
+	
+}
+
+.main{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	align-content: center;
+	padding: 50px;
+}
+
+.container{
+	width: 500px;
+	height: 60vh;
+	background: white;
+	display: flex;
+	align-content: center;
+	justify-content: center;
+}
+
+.title{
+
+}
+
+.form-control{
+	display: inline-flex;
+}
+
+.form-button{
+	display: flex;
+	align-content: center;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	
+}
+
+.button-register{
+	height: 3rem;
+	width: 12rem;
+	background: #0094cf;
+	border-radius: 4px;
+	color: white;
+	border-color: #0094cf;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding-left: 14px;
+	padding-right: 14px;
+	font-weight: 500;
+
+}
+
+.link-back-home{
+	font-size: 0.8rem;
+}
+
