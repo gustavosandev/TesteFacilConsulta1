@@ -36,7 +36,43 @@ if (isset($_GET['flag']) AND $_GET['flag'] == 'cadastrarMedico')  {
 	}
 
 	echo json_encode($retorno);
+}
 
+if (isset($_GET['flag']) AND $_GET['flag'] == 'atualizarMedico')  {
 
+	$nome =  strip_tags(addslashes(trim($_POST['nome'])));
+	$senhaAntiga = strip_tags(addslashes(trim($_POST['senhaAntiga'])));
+	$novaSenha = strip_tags(addslashes(trim($_POST['novaSenha'])));
+	$id = strip_tags(addslashes(trim($_POST['id'])));
 
+	if (isset($nome) AND isset($senhaAntiga) AND isset($novaSenha) AND isset($id)) {
+
+		if (strlen($nome) >= 6 AND strlen($senhaAntiga) >= 6 AND strlen($novaSenha) >= 6) {
+			
+			$senhaAntiga = md5($senhaAntiga);
+			$value = $objMedico->select($id);
+			if ($value->senha == $senhaAntiga) {
+				$novaSenha = md5($novaSenha);
+				$objMedico->setNome($nome);
+				$objMedico->setSenha($novaSenha);
+				$retorno = $objMedico->update($id);
+
+				if($retorno){
+					$retorno = "Sucesso na atualização!|||1";
+				}else{
+					$retorno = "Erro na atualização!|||0";
+				}
+			}else{
+				$retorno = "Senha antiga incorreta!|||0";
+			}
+
+				
+		}else{
+			$retorno = "Os campos devem conter o mínimo de 6 caracteres!|||0";
+		}
+	}else{
+		$retorno = "Erro|||0";
+	}
+
+	echo json_encode($retorno);
 }

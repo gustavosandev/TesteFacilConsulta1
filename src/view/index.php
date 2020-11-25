@@ -13,37 +13,54 @@ require_once'../controller/medicoController.php';
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 	<link rel="stylesheet" type="text/css" href="./css/style.css">
-	<title>Cadastro</title>
+	<title>Início</title>
 </head>
 <body>
 	<header>
 		<nav class="menu">
-			<a href="#" class="nav-button">Cadastro de médico</a>
+			<a href="cadastro.php" class="nav-button">Cadastro de Médico</a>
 		</nav>
 	</header>
 	<main class="main">
-		<div class="container">
-	    	<div class="row">
-	    		<div class="col-md-12">
-	    			<h3 class="text-center py-3">Cadastro de médico</h3>
-	    			<form name="formCadastroMedico" class="form-register" method="post">
-	    				<label for="nome">Nome</label>
-				   		<input type="text" name="nome" id="nome" class="form-control" placeholder="Insira o nome do profissional" minlength="6" pattern="[A-Za-z \s]{5,30}$" required>
-				   		<label for="email">E-mail</label>
-				   		<input type="email" name="email" id="email" class="form-control" placeholder="exemplo@dominio.com.br" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" minlength="6" required>
-				   		<label for="senha">Senha</label>
-				   		<input type="password" name="senha" id="senha" class="form-control" placeholder="Escolha uma senha forte e segura" minlength="6" pattern="(?=.*[^\s]+[A-z0-9]).{6,}" required>
-				   		<div class="form-button my-3">
-				   			<button type="button" name="botaoRealizarCadastro" id="register" class="button-register my-2">Realizar cadastro</button>
-				   			<a href="#" class="link-back-home">Voltar para a Página Inicial</a>
-				   		</div>
-				   		
-	    			</form>
-				    
-				    	
+	<?php 
+		foreach ($objMedico->selectAll() as $key => $value) {
+			
+	?>
+		<div class="container-list">
+	    	<div class="row my-3 borda">
+	    		<div class="col-md-8 borda">
+	    			<h4 class="text-left"><?php echo $value->nome; ?></h4>
+	    		</div>
+	    		<div class="col-md-2 borda">
+	    			<a href="editarCadastro.php?id=<?php echo $value->id; ?>" class="container-button">Editar cadastro</a>
+	    		</div>
+	    		<div class="col-md-2 borda">
+	    			<a href="configurarHorario.php?id=<?php echo $value->id; ?>" class="container-button">Configurar horários</a>
 	    		</div>
 	    	</div>
+	    	<div class="row my-3 px-2">
+    			<div class="col-sm-3 borda "><button class="btn btn-primary btn-sm">16/11/2020 às 08:00</button></div>
+    			<div class="col-sm-3 borda "><button class="btn btn-primary btn-sm">16/11/2020 às 08:00</button></div>
+    			<div class="col-sm-3 borda "><button class="btn btn-primary btn-sm">16/11/2020 às 08:00</button></div>
+    			<div class="col-sm-3 borda "><button class="btn btn-primary btn-sm">16/11/2020 às 08:00</button></div>
+    		</div>
+    		<div class="row my-3 px-2 justify-content-center">
+    			<div class="col-sm-3 borda "><button class="btn btn-primary btn-sm">16/11/2020 às 08:00</button></div>
+    			<div class="col-sm-3 borda "><button class="btn btn-primary btn-sm">16/11/2020 às 08:00</button></div>
+    			<div class="col-sm-3 borda "><button class="btn btn-primary btn-sm">16/11/2020 às 08:00</button></div>
+    			<div class="col-sm-3 borda "><button class="btn btn-primary btn-sm">16/11/2020 às 08:00</button></div>
+    		</div>
+    		<div class="row my-3 px-2 justify-content-center">
+    			<div class="col-sm-3 borda "><button class="btn btn-primary btn-sm">16/11/2020 às 08:00</button></div>
+    			<div class="col-sm-3 borda "><button class="btn btn-primary btn-sm">16/11/2020 às 08:00</button></div>
+    			<div class="col-sm-3 borda "><button class="btn btn-primary btn-sm">16/11/2020 às 08:00</button></div>
+    			<div class="col-sm-3 borda "><button class="btn btn-primary btn-sm">16/11/2020 às 08:00</button></div>
+    		</div>
 	    </div>
+	    <?php
+		    } 
+		?>
+	    
 	</main>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.js" integrity="sha512-WNLxfP/8cVYL9sj8Jnp6et0BkubLP31jhTG9vhL/F5uEZmg5wEzKoXp1kJslzPQWwPT1eyMiSxlKCgzHLOTOTQ==" crossorigin="anonymous"></script>
     <!--<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>-->
@@ -54,54 +71,7 @@ require_once'../controller/medicoController.php';
  <script type="text/javascript">
     	$(document).ready(function(){
     		
-    		$('#register').on('click', function(e){
-    			e.preventDefault();
-    			var nome = $('#nome').val();
-    			var email = $('#email').val();
-    			var senha = $('#senha').val();
-    			var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-    			
-    			if(nome != "" && email != "" && senha != ""){
-    				if (nome.length >= 6 && email.length >= 6 && senha.length >= 6 ) {
-
-    					if (regex.test(email)) {
-	    					$.ajax({
-	    						method: "POST",
-								url: "../controller/medicoController.php?flag=cadastrarMedico",
-								data: { nome: nome, senha: senha, email: email },
-								cache: false,
-								dataType: "json",
-
-								success: function(data) {
-				                    console.log(data);
-				                   
-				                    data = data.split("|||");
-				                    if(data[1]==1){
-				                    	alert(data[0]);
-				                    }else if(data[1]==0){
-				                    	alert(data[0]);
-				                    }else{
-				                    	alert("Erro");
-				                    }
-	                            }, 
-					            error: function(data){
-				                    alert("Erro! Estamos passando por problemas técnicos.");
-				                    console.log(data);
-					            }
-
-	    					});
-
-	    				}else{
-	    					alert("Este e-mail não é válido!");
-	    				}
-	    			}else{
-	    				alert("Os campos devem conter o mínimo de 6 caracteres!");
-	    			}
-
-    			}else{
-    				alert("Por favor, preencha todos os campos!");
-    			}
-    		});
+    		
     	});
     </script>
 </html>

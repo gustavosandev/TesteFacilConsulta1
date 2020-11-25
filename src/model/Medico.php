@@ -45,7 +45,7 @@ class Medico extends Banco {
 		$stmt = Banco::prepare($sql);
 		$stmt->bindParam(':id', $id, PDO::PARAM_INT);
 		$stmt->execute();
-		return $stmt->fetchAll();
+		return $stmt->fetch();
 	}
 	
 	public function selectAll(){
