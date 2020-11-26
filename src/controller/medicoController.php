@@ -16,11 +16,12 @@ if (isset($_GET['flag']) AND $_GET['flag'] == 'cadastrarMedico')  {
 	if (isset($nome) AND filter_var($email, FILTER_VALIDATE_EMAIL) AND isset($senha)) {
 
 		if (strlen($nome) >= 6 AND strlen($email) >= 6 AND strlen($senha) >= 6) {
-		
+			$data_criacao = date('Y-m-d H:i:s');
 			$senha = md5($senha);
 			$objMedico->setNome($nome);
 			$objMedico->setEmail($email);
 			$objMedico->setSenha($senha);
+			$objMedico->setDataCriacao($data_criacao);
 			$retorno = $objMedico->insert();
 
 			if($retorno){
@@ -48,13 +49,14 @@ if (isset($_GET['flag']) AND $_GET['flag'] == 'atualizarMedico')  {
 	if (isset($nome) AND isset($senhaAntiga) AND isset($novaSenha) AND isset($id)) {
 
 		if (strlen($nome) >= 6 AND strlen($senhaAntiga) >= 6 AND strlen($novaSenha) >= 6) {
-			
+			$data_alteracao = date('Y-m-d H:i:s');
 			$senhaAntiga = md5($senhaAntiga);
 			$value = $objMedico->select($id);
 			if ($value->senha == $senhaAntiga) {
 				$novaSenha = md5($novaSenha);
 				$objMedico->setNome($nome);
 				$objMedico->setSenha($novaSenha);
+				$objMedico->setDataAlteracao($data_alteracao);
 				$retorno = $objMedico->update($id);
 
 				if($retorno){

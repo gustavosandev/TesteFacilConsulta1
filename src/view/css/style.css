@@ -3,6 +3,7 @@
     padding: 0;
     border: 0;
     list-style:none;
+    font-family: 'Signika', sans-serif;
 }
 body{
 	margin: 0;
@@ -22,7 +23,8 @@ img{
     min-width: 100vw;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-end;
+    padding-right: 20vw;
     
              
 }
@@ -165,4 +167,16 @@ img{
 	background: white;
 	padding: 5px;
 	
+}
+.remove-button{
+	color: red;
+	background: none;
+	font-weight: 500;
+	text-decoration: underline;
+	border: none;
+}
+
+.darkblue{
+	color: #004768;
+	font-weight: bolder;
 }

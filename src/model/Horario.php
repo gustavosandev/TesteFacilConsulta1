@@ -6,7 +6,7 @@ require_once 'Banco.php';
 
 class Horario extends Banco {
 
-    protected $table = 'medico';
+    protected $table = 'horario';
     private $id;
     private $id_medico;
     private $data_horario;
@@ -14,13 +14,50 @@ class Horario extends Banco {
     private $data_criacao;
     private $data_alteracao;
 
+    public function insert() {
+
+        $sql = "INSERT INTO $this->table (data_criacao, data_horario, horario_agendado, id_medico) VALUES (:data_criacao, :data_horario, :horario_agendado, :id_medico)";
+        $stmt = Banco::prepare($sql);
+        $stmt->bindParam(':data_criacao', $this->data_criacao);
+        $stmt->bindParam(':horario_agendado', $this->horario_agendado);
+        $stmt->bindParam(':data_horario', $this->data_horario);
+        $stmt->bindParam(':id_medico', $this->id_medico);
+     
+        return $stmt->execute();
+    }
+
     public function select($id){
 		$sql  = "SELECT * FROM $this->table WHERE id = :id";
 		$stmt = Banco::prepare($sql);
 		$stmt->bindParam(':id', $id, PDO::PARAM_INT);
 		$stmt->execute();
-		return $stmt->fetchAll();
+		return $stmt->fetch();
 	}
+
+    public function selectTime($id_medico){
+        $sql  = "SELECT * FROM $this->table WHERE id_medico = :id_medico";
+        $stmt = Banco::prepare($sql);
+        $stmt->bindParam(':id_medico', $id_medico, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
+    public function selectTimeunScheduled($id_medico){
+        $sql  = "SELECT 
+                    * 
+                FROM 
+                    $this->table 
+                WHERE 
+                    id_medico = :id_medico 
+                AND 
+                    horario_agendado = 0
+                AND
+                    data_horario >= NOW()
+                ORDER BY data_horario ASC";
+        $stmt = Banco::prepare($sql);
+        $stmt->bindParam(':id_medico', $id_medico, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
 	
 	public function selectAll(){
 		$sql  = "SELECT * FROM $this->table";
@@ -36,6 +73,20 @@ class Horario extends Banco {
 		return $stmt->execute(); 
 	}
 
+    public function update($id) {
+
+        $sql = "UPDATE $this->table 
+        SET data_alteracao=:data_alteracao, horario_agendado = :horario_agendado
+        WHERE id = :id";
+        $stmt = Banco::prepare($sql);
+        
+        $stmt->bindParam(':horario_agendado', $this->horario_agendado);
+        $stmt->bindParam(':data_alteracao', $this->data_alteracao);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        return $stmt->execute();
+    }
+
+    
 
     /**
      * @return mixed

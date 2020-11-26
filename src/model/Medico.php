@@ -37,7 +37,7 @@ class Medico extends Banco {
         $stmt->bindParam(':nome', $this->nome);
         $stmt->bindParam(':data_alteracao', $this->data_alteracao);
         $stmt->bindParam(':senha', $this->senha);
-        $stmt->bindParam(':id', $id);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         return $stmt->execute();
     }
     public function select($id){
@@ -48,12 +48,21 @@ class Medico extends Banco {
 		return $stmt->fetch();
 	}
 	
-	public function selectAll(){
-		$sql  = "SELECT * FROM $this->table";
-		$stmt = Banco::prepare($sql);
-		$stmt->execute();
-		return $stmt->fetchAll();
-	}
+    public function selectAll(){
+        $sql  = "SELECT 
+                    m.id as id_medico,
+                    m.nome as nome,
+                    h.data_horario as data_horario,
+                    h.id as id_horario
+                FROM 
+                    $this->table as m, horario as h 
+                WHERE 
+                    m.id = h.id_medico 
+                GROUP BY m.id";
+        $stmt = Banco::prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
 
 	public function delete($id){
 		$sql  = "DELETE FROM $this->table WHERE id = :id";
